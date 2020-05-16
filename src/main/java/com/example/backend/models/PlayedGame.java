@@ -18,6 +18,12 @@ public class PlayedGame {
     @ManyToOne
     private Player player;
 
+    public PlayedGame(Game g, Player p, Role r) {
+        this.game = g;
+        this.role = r;
+        this.player = p;
+    }
+
     public Integer getId() {
         return id;
     }
