@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.Game;
+import com.example.backend.models.PlayedGame;
 import com.example.backend.models.Role;
 import com.example.backend.models.Player;
 import com.example.backend.services.GameService;
@@ -25,4 +26,10 @@ public class GameController {
             return service.createGame(g, players, roles);
         return null;
     }
+
+    @GetMapping("api/game/{gid}/players")
+    public Iterable<PlayedGame> getPlayers(
+        @PathVariable("gid") int gid) {
+            return service.getPlayers(gid);
+        }
 }

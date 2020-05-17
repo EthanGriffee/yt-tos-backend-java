@@ -27,12 +27,12 @@ public class GameService {
     PlayedGameRepository playedGameRepository;
 
     public Game createGame(Game g, List<Player> players, List<Role> roles) {
-        Game g = gameRepository.save(g);
+        g = gameRepository.save(g);
         for (int x = 0; x < 15; x++) {
             Player p = playerRepository.save(players.get(0));
             playedGameRepository.save(new PlayedGame(g, p, roles.get(0)));
-
         }
+        return g;
     }
 
     public boolean checkPlayersAndRoles(List<Player> players, List<Role> roles) {
@@ -41,6 +41,10 @@ public class GameService {
             return true;
         }
         return false;
+    }
+
+    public List<PlayedGame> getPlayers(int gid) {
+        return gameRepository.findById(gid).get().getPlayers();
     }
     
 }
