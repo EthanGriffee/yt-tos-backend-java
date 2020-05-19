@@ -19,17 +19,24 @@ public class GameController {
 
     @PostMapping("api/games")
     public Game createGame(
-            @RequestBody Game g,
-            @RequestBody List<Player> players,
-            @RequestBody List<Role> roles) {
-        if (service.checkPlayersAndRoles(players, roles))
-            return service.createGame(g, players, roles);
+            @RequestBody Game game,
+            @RequestBody List<String> players,
+            @RequestBody List<String> roles,
+            @RequestBody int mvp,
+            @RequestBody int lvp) {
+        if (service.checkPlayersAndRoles(players, roles, mvp, lvp))
+            return service.createGame(game, players, roles, mvp, lvp);
         return null;
     }
 
-    @GetMapping("api/game/{gid}/players")
-    public Iterable<PlayedGame> getPlayers(
+    @GetMapping("api/games/{gid}/players")
+    public Iterable<PlayedGame> findPlayersForGame(
         @PathVariable("gid") int gid) {
             return service.getPlayers(gid);
+        }
+
+    @GetMapping("api/games")
+    public Iterable<Game> findAllGames() {
+            return service.findAllGames();
         }
 }

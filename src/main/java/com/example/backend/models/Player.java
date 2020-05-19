@@ -26,6 +26,10 @@ public class Player {
     @JsonIgnore
     private List<PlayedGame> gamesPlayed = new ArrayList<>();
 
+    public Player(String username) {
+        this.name = username;
+    }
+
     public List<Game> getMvpGames() {
         return mvpGames;
     }
