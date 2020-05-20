@@ -26,6 +26,8 @@ public class Player {
     @JsonIgnore
     private List<PlayedGame> gamesPlayed = new ArrayList<>();
 
+    public Player() { }
+
     public Player(String username) {
         this.name = username;
     }

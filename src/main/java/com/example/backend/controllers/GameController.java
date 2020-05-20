@@ -1,5 +1,6 @@
 package com.example.backend.controllers;
 
+import com.example.backend.models.CreateGameWrapper;
 import com.example.backend.models.Game;
 import com.example.backend.models.PlayedGame;
 import com.example.backend.models.Role;
@@ -19,13 +20,9 @@ public class GameController {
 
     @PostMapping("api/games")
     public Game createGame(
-            @RequestBody Game game,
-            @RequestBody List<String> players,
-            @RequestBody List<String> roles,
-            @RequestBody int mvp,
-            @RequestBody int lvp) {
-        if (service.checkPlayersAndRoles(players, roles, mvp, lvp))
-            return service.createGame(game, players, roles, mvp, lvp);
+            @RequestBody CreateGameWrapper creategame) {
+        if (service.checkPlayersAndRoles(creategame.getPlayers(), creategame.getRoles(), creategame.getMvp(), creategame.getLvp()))
+            return service.createGame(creategame.getGame(), creategame.getPlayers(), creategame.getRoles(), creategame.getMvp(), creategame.getLvp());
         return null;
     }
 

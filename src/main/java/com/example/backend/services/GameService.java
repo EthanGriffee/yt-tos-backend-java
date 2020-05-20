@@ -3,8 +3,10 @@ package com.example.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import com.example.backend.models.Game;
@@ -54,10 +56,18 @@ public class GameService {
     }
 
     public boolean checkPlayersAndRoles(List<String> usernames, List<String> rolenames, int mvp, int lvp) {
-        if (usernames.size() == 15 && rolenames.size() == 15 && Stream.of(usernames).distinct().count() == 15 && Math.abs(mvp) <= 14 && Math.abs(lvp) <= 14 && mvp != lvp) {
+        if (usernames.size() == 15 && usernames.size() == 15 && Math.abs(mvp) <= 14 && Math.abs(lvp) <= 14 && mvp != lvp) {
+            Set<String> appeared = new HashSet<String>();
+            for (String username : usernames) {
+              if (!appeared.add(username)) {
+                return false;
+              }
+            }
             // ADD CHECKS FOR ROLLES
             return true;
         }
+        System.out.println("Bad game given");
+        System.out.printf("%d %d %d %d %d", usernames.size(), rolenames.size(), Stream.of(usernames).distinct().count(), mvp, lvp);
         return false;
     }
 
