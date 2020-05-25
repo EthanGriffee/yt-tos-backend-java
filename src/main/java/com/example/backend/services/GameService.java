@@ -37,12 +37,12 @@ public class GameService {
         g = gameRepository.save(g);
         for (int x = 0; x < 15; x++) {
             Player being_added;
-            Optional<Player> p = playerRepository.findById(usernames.get(0));
+            Optional<Player> p = playerRepository.findById(usernames.get(x));
             if (p.isPresent()) {
                 being_added = p.get();
             }
             else {
-                being_added = playerRepository.save(new Player(usernames.get(0)));
+                being_added = playerRepository.save(new Player(usernames.get(x)));
             }
             if (mvp == x) {
                 g.setMvp(being_added);
@@ -50,7 +50,7 @@ public class GameService {
             if (lvp == x) {
                 g.setLvp(being_added);
             }
-            playedGameRepository.save(new PlayedGame(g, being_added, roleRepository.findById(rolenames.get(0)).get()));
+            playedGameRepository.save(new PlayedGame(g, being_added, roleRepository.findById(rolenames.get(x)).get()));
         }
         return g;
     }

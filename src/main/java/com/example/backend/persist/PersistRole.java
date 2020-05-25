@@ -43,6 +43,12 @@ public class PersistRole {
         saving.add(new Role("Blackmailer", Type.RANDOM_MAFIA));
         saving.add(new Role("Consigliere", Type.RANDOM_MAFIA));
         saving.add(new Role("Consort", Type.RANDOM_MAFIA));
+        saving.add(new Role("Jester", Type.NEUTRAL_EVIL));
+        saving.add(new Role("Witch", Type.NEUTRAL_EVIL));
+        saving.add(new Role("Executioner", Type.NEUTRAL_EVIL));
+        saving.add(new Role("Arsonist", Type.NEUTRAL_KILLING));
+        saving.add(new Role("Werewolf", Type.NEUTRAL_KILLING));
+        saving.add(new Role("Serial Killer", Type.NEUTRAL_KILLING));
         roleRepo.saveAll(saving);
     }
 
