@@ -13,6 +13,8 @@ public class Role {
 
     Type type;
 
+    public Role() { }
+
     public Role(String name, Type type) {
         this.name = name;
         this.type = type;
