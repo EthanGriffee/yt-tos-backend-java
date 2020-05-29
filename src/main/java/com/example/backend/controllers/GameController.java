@@ -36,4 +36,10 @@ public class GameController {
     public Iterable<Game> findAllGames() {
             return service.findAllGames();
         }
+    
+    @GetMapping("api/games/{gid}")
+    public Game findGame(
+        @PathVariable("gid") int gid) {
+            return service.findGame(gid);
+        }
 }

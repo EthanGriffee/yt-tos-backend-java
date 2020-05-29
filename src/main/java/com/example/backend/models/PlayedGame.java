@@ -18,6 +18,8 @@ public class PlayedGame {
     @ManyToOne
     private Player player;
 
+    public PlayedGame() { }
+
     public PlayedGame(Game g, Player p, Role r) {
         this.game = g;
         this.role = r;

@@ -78,5 +78,9 @@ public class GameService {
     public Iterable<Game> findAllGames() {
         return gameRepository.findAll();
     }
+
+    public Game findGame(int gid) {
+        return gameRepository.findById(gid).get();
+    }
     
 }

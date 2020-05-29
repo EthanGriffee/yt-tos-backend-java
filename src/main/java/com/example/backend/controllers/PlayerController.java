@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@RestController
+@CrossOrigin(origins = "*")
 public class PlayerController {
 
 
@@ -22,5 +25,10 @@ public class PlayerController {
         @PathVariable("username") String username) {
             return service.getPlayer(username);
         }
-    
+
+    @GetMapping("api/players/{username}/playedgames")
+    public List<PlayedGame> getPlayedGames(
+        @PathVariable("username") String username) {
+            return service.getPlayedGames(username);
+        }
 }
