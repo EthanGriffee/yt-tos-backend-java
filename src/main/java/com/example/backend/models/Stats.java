@@ -34,6 +34,7 @@ public class Stats {
                     else {
                         games_lost += 1;
                     }
+                    break;
                 case NEUTRAL_KILLING:
                     checkWinForRole(winner, winType.NK);
                     break;

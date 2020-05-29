@@ -27,7 +27,7 @@ public class PersistRole {
         saving.add(new Role("Spy", Type.TOWN_INVESTIGATIVE)); 
         saving.add(new Role("Vigilante", Type.TOWN_KILLING));
         saving.add(new Role("Veteran", Type.TOWN_KILLING));
-        saving.add(new Role("Body Guard", Type.TOWN_PROTECTIVE));
+        saving.add(new Role("Bodyguard", Type.TOWN_PROTECTIVE));
         saving.add(new Role("Doctor", Type.TOWN_PROTECTIVE));
         saving.add(new Role("Escort", Type.TOWN_SUPPORT));
         saving.add(new Role("Mayor", Type.TOWN_SUPPORT));
