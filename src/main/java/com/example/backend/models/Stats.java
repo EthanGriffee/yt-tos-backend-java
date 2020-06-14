@@ -2,6 +2,10 @@ package com.example.backend.models;
 
 import com.example.backend.models.Game.winType;
 
+/**
+ * This can probably be improved by being moved into Player, inclduing a @JsonIgnore and
+ * whenever a stat is added, doing this instead of calculating everytime it is called
+ */
 public class Stats {
     Player player;
     int games_played;

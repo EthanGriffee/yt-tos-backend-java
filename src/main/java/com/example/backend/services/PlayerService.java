@@ -35,7 +35,13 @@ public class PlayerService {
             returning.add(new Stats(p));
         }
         return returning;
-        
     }
     
+    public List<Stats> getStats(String username) {
+        List<Stats> returning = new ArrayList<Stats>();
+        for (Player p : playerRepository.findAll()) {
+            returning.add(new Stats(p));
+        }
+        return returning;
+    }
 }

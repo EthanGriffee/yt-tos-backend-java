@@ -23,5 +23,11 @@ public class StatsController {
     public List<Stats> getAllStats() {
             return service.getStats();
         }
+
+    @GetMapping("api/stats/{name}")
+    public List<Stats> getStatsForPlayer(
+        @PathVariable("name") String name){
+            return service.getStats(name);
+        }
     
 }
