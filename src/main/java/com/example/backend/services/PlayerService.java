@@ -39,7 +39,7 @@ public class PlayerService {
     
     public List<Stats> getStats(String username) {
         List<Stats> returning = new ArrayList<Stats>();
-        for (Player p : playerRepository.findAll()) {
+        for (Player p : playerRepository.searchPlayer(username)) {
             returning.add(new Stats(p));
         }
         return returning;
