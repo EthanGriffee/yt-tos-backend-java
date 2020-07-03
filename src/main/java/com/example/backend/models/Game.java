@@ -17,7 +17,9 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String youtubeURL;
+    private String youtubeID;
+
+    private String videoTitle;
 
     @ManyToOne
     private Player mvp;
@@ -41,14 +43,6 @@ public class Game {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getYoutubeURL() {
-        return youtubeURL;
-    }
-
-    public void setYoutubeURL(String youtubeURL) {
-        this.youtubeURL = youtubeURL;
     }
 
     public List<PlayedGame> getPlayers() {
@@ -89,6 +83,22 @@ public class Game {
 
     public void setNeWin(boolean neWin) {
         this.neWin = neWin;
+    }
+
+    public String getYoutubeID() {
+        return youtubeID;
+    }
+
+    public void setYoutubeID(String youtubeID) {
+        this.youtubeID = youtubeID;
+    }
+
+    public String getVideoTitle() {
+        return videoTitle;
+    }
+
+    public void setVideoTitle(String videoTitle) {
+        this.videoTitle = videoTitle;
     }
     
 }
