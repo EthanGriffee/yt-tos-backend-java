@@ -63,6 +63,11 @@ public class GameService {
                 return false;
               }
             }
+            for (String role : rolenames) {
+                if (!roleRepository.findById(role).isPresent()) {
+                    return false;
+                }
+            }
             // ADD CHECKS FOR ROLLES
             return true;
         }

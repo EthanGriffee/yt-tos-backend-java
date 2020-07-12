@@ -4,8 +4,8 @@ import java.util.List;
 
 public class CreateGameWrapper {
     Game game;
-     List<String> players;
-     List<String> roles;
+    List<String> players;
+    List<String> roles;
     int mvp;
     int lvp;
 

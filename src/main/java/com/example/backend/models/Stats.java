@@ -2,12 +2,18 @@ package com.example.backend.models;
 
 import com.example.backend.models.Game.winType;
 
+import javax.persistence.*;
+
 /**
  * This can probably be improved by being moved into Player, inclduing a @JsonIgnore and
  * whenever a stat is added, doing this instead of calculating everytime it is called
  */
+@Table(name = "stats")
 public class Stats {
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     Player player;
+
     int games_played;
     int games_won;
     int games_lost;
@@ -21,40 +27,44 @@ public class Stats {
         this.player = player;
         this.games_played = player.getGamesPlayed().size();
         for(PlayedGame pg : player.getGamesPlayed()) {
-            if (pg.getGame().getMvp().equals(this.player)) {
-                mvps += 1;
-            }
-            else if (pg.getGame().getLvp().equals(this.player)) {
-                lvps += 1;
-            }
+            addGamePlayed(pg);
+        }
+    }
 
-            winType winner = pg.getGame().getWinner();
+    public void addGamePlayed(PlayedGame pg) {
+        if (pg.getGame().getMvp().equals(this.player)) {
+            mvps += 1;
+        }
+        else if (pg.getGame().getLvp().equals(this.player)) {
+            lvps += 1;
+        }
 
-            switch(pg.getRole().type) {
-                case NEUTRAL_EVIL:
-                    if (pg.getGame().isNeWin()) {
-                        games_won += 1;
-                    }
-                    else {
-                        games_lost += 1;
-                    }
-                    break;
-                case NEUTRAL_KILLING:
-                    checkWinForRole(winner, winType.NK);
-                    break;
-                case TOWN_INVESTIGATIVE:
-                case TOWN_KILLING:
-                case TOWN_PROTECTIVE:
-                case TOWN_SUPPORT:
-                case JAILOR:
-                    checkWinForRole(winner, winType.TOWN);
-                    break;
-                case MAFIOSO:
-                case RANDOM_MAFIA:
-                case GODFATHER:
-                    checkWinForRole(winner, winType.MAFIA);
-                    break;      
-            }
+        winType winner = pg.getGame().getWinner();
+
+        switch(pg.getRole().type) {
+            case NEUTRAL_EVIL:
+                if (pg.getGame().isNeWin()) {
+                    games_won += 1;
+                }
+                else {
+                    games_lost += 1;
+                }
+                break;
+            case NEUTRAL_KILLING:
+                checkWinForRole(winner, winType.NK);
+                break;
+            case TOWN_INVESTIGATIVE:
+            case TOWN_KILLING:
+            case TOWN_PROTECTIVE:
+            case TOWN_SUPPORT:
+            case JAILOR:
+                checkWinForRole(winner, winType.TOWN);
+                break;
+            case MAFIOSO:
+            case RANDOM_MAFIA:
+            case GODFATHER:
+                checkWinForRole(winner, winType.MAFIA);
+                break;      
         }
     }
 
