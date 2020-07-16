@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import com.example.backend.models.Game;
 import com.example.backend.models.PlayedGame;
-import com.example.backend.models.Role;
 import com.example.backend.models.Player;
 import com.example.backend.repositories.GameRepository;
 import com.example.backend.repositories.PlayedGameRepository;
@@ -60,11 +59,13 @@ public class GameService {
             Set<String> appeared = new HashSet<String>();
             for (String username : usernames) {
               if (!appeared.add(username)) {
+                System.out.printf("Bad username given. %s", username);
                 return false;
               }
             }
             for (String role : rolenames) {
                 if (!roleRepository.findById(role).isPresent()) {
+                    System.out.printf("Bad role given %s", role);
                     return false;
                 }
             }
