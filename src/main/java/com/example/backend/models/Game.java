@@ -1,10 +1,10 @@
 package com.example.backend.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -28,8 +28,8 @@ public class Game {
     private Player lvp;
 
     @OneToMany(mappedBy = "game")
-    @JsonIgnore
-    private List<PlayedGame> players = new ArrayList<>();
+    @JsonBackReference
+    private List<PlayedGame> players;
 
     @Enumerated(EnumType.ORDINAL)
     private winType winner;

@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import com.example.backend.models.Game;
 import com.example.backend.models.PlayedGame;
 import com.example.backend.models.Player;
+import com.example.backend.models.Role;
 import com.example.backend.repositories.GameRepository;
 import com.example.backend.repositories.PlayedGameRepository;
 import com.example.backend.repositories.PlayerRepository;
@@ -108,24 +109,48 @@ public class GameService {
         }
     }
 
+    /**
+     * Not very efficient way to edit a game, not expected to be used often.
+     * @param g the game thats replacing
+     * @return 0 for success -1 for failure
+     */
     public int editGame(Game g) {
         Optional<Game> result = gameRepository.findById(g.getId());
         if (result.isPresent()) {
             Set<Player> appeared = new HashSet<Player>();
+            List<Player> check =  new ArrayList<Player>();
+            for (PlayedGame pg : result.get().getPlayers()) {
+                check.add(pg.getPlayer());
+            }
             for (PlayedGame p : g.getPlayers()) {
-                if (!appeared.add(p.getPlayer())) {
-                System.out.printf("Bad username given. %s", p.getPlayer().getName());
-                return -1;
+                Optional<Player> player = playerRepository.findById(p.getPlayer().getName());
+                if (!player.isPresent()) {
+                    playerRepository.save(p.getPlayer());
                 }
-                if (!roleRepository.findById(p.getRole().getName()).isPresent()) {
+                if (!appeared.add(p.getPlayer())) {
+                    System.out.printf("Bad username given. %s", p.getPlayer().getName());
+                    return -1;
+                }
+                Optional<Role> r = roleRepository.findById(p.getRole().getName());
+                if (r.isPresent()) {
+                    p.setRole(r.get());
+                }
+                else {
                     System.out.printf("Bad role given %s", p.getRole().getName());
                     return -1;
                 }
             }
+            System.out.println("WE MADE ITT HERE");
             for (PlayedGame p : g.getPlayers()) {
-                //playedGameRepository.save(p);
+                p.setGame(g);
+                playedGameRepository.save(p);
             }
             gameRepository.save(g);
+            for (Player p : check) {
+                if (p.getGamesPlayed().size() == 0) {
+                    playerRepository.delete(p);
+                }
+            }
             return 0;
         }
         return -1;
