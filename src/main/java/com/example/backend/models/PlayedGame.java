@@ -2,6 +2,8 @@ package com.example.backend.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "playedgame")
 public class PlayedGame {
@@ -10,6 +12,7 @@ public class PlayedGame {
     private Integer id;
 
     @ManyToOne
+    @JsonIgnore
     private Game game;
 
     @ManyToOne

@@ -75,6 +75,16 @@ public class GameController {
         return service.findGame(gid);
     }
 
+    @DeleteMapping("api/games/{gid}")
+    public void deleteGame(@PathVariable("gid") int gid) {
+        service.deleteGame(gid);
+    }
+
+    @PutMapping("api/games")
+    public int editGame(@RequestBody Game game) {
+        return service.editGame(game);
+    }
+
     /** 
     @PostMapping("/gameimage")
     public ResponseEntity<?> getImage(@RequestParam("file") MultipartFile file)
