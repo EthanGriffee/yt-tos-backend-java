@@ -5,7 +5,12 @@ import com.example.backend.constants.ConstantRoles;
 
 import java.util.List;
 
+
 public class Stats {
+
+    // both fields are optional and indicate if the stats are associated with a player, role or both.
+    Role role;
+    Player player;
 
     int games_played;
     int games_won;
@@ -21,6 +26,12 @@ public class Stats {
 
     public Stats(Player player) {
         this(player.getGamesPlayed());
+        this.player = player;
+    }
+
+    public Stats(Role role, List<PlayedGame> lpg) {
+        this(lpg);
+        this.role = role;
     }
 
     public Stats(List<PlayedGame> lpg) {
@@ -129,5 +140,21 @@ public class Stats {
 
     public void setLvps(int lvps) {
         this.lvps = lvps;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

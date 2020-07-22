@@ -1,7 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.Stats;
-import com.example.backend.services.PlayerService;
+import com.example.backend.services.StatsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +14,22 @@ import java.util.List;
 public class StatsController {
 
     @Autowired
-    PlayerService service;
+    StatsService service;
 
-    @GetMapping("api/stats")
-    public List<Stats> getAllStats() {
-            return service.getStats();
+    @GetMapping("api/stats-player")
+    public List<Stats> getAllPlayerStats() {
+            return service.getPlayerStats();
+        }
+    
+    @GetMapping("api/stats-roles")
+    public List<Stats> getAllRoleStats() {
+            return service.getRoleStats();
         }
 
     @GetMapping("api/stats/{name}")
     public List<Stats> getStatsForPlayer(
         @PathVariable("name") String name){
-            return service.getStats(name);
+            return service.getPlayerStats(name);
         }
     
 }
