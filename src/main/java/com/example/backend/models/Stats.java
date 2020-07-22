@@ -3,25 +3,9 @@ package com.example.backend.models;
 import com.example.backend.models.Game.winType;
 import com.example.backend.constants.ConstantRoles;
 
-import org.springframework.data.annotation.Immutable;
+import java.util.List;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.persistence.*;
-
-/**
- * This can probably be improved by being moved into Player, inclduing a @JsonIgnore and
- * whenever a stat is added, doing this instead of calculating everytime it is called
- */
-// @Entity
-// @Immutable
-// @Table(name = "stats")
 public class Stats {
-
-    //@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    Player player;
 
     int games_played;
     int games_won;
@@ -36,19 +20,22 @@ public class Stats {
     public Stats() {}
 
     public Stats(Player player) {
-        this.player = player;
-        this.games_played = player.getGamesPlayed().size();
-        for(PlayedGame pg : player.getGamesPlayed()) {
+        this(player.getGamesPlayed());
+    }
+
+    public Stats(List<PlayedGame> lpg) {
+        this.games_played = lpg.size();
+        for(PlayedGame pg : lpg) {
             addGamePlayed(pg);
         }
-        System.out.println(Arrays.toString(role_to_games_played));
+        
     }
 
     public void addGamePlayed(PlayedGame pg) {
-        if (pg.getGame().getMvp().equals(this.player)) {
+        if (pg.getGame().getMvp().equals(pg.getPlayer())) {
             mvps += 1;
         }
-        else if (pg.getGame().getLvp().equals(this.player)) {
+        else if (pg.getGame().getLvp().equals(pg.getPlayer())) {
             lvps += 1;
         }
 
@@ -94,14 +81,6 @@ public class Stats {
             games_lost += 1;
         }
         role_to_games_played[ConstantRoles.role_to_index.get(role.getName())] = role_to_games_played[ConstantRoles.role_to_index.get(role.getName())]  + 1;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public int getGames_played() {
